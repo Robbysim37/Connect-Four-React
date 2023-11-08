@@ -6,7 +6,7 @@ export default function Board() {
     const [currPlayer,setCurrPlayer] = useState("red")
     const [boardState,setBoardState] = useState(
         [
-            ["clear","clear","clear","clear","clear","red"],
+            ["clear","clear","clear","clear","clear","clear"],
             ["clear","clear","clear","clear","clear","clear"],
             ["clear","clear","clear","clear","clear","clear"],
             ["clear","clear","clear","clear","clear","clear"],
@@ -16,26 +16,25 @@ export default function Board() {
         ]
     )
 
-    const placePiece = (column,i) => {
-        if(column[i+1] !== "clear"){
-            console.log(column[i])
-            column[i] = currPlayer
-            setCurrPlayer(currPlayer === "red" ? "yellow" : "red")
-            return column
-        }
-        placePiece(column,i+1)
-    }
-
     const selectColumn = (e) => {
         const selectedColumn = e.currentTarget.id
-        const newBoardState = [...boardState]
 
-        console.log(newBoardState[selectedColumn][0])
-        newBoardState[selectedColumn][0] = currPlayer
-        console.log(newBoardState[selectedColumn][0])
-        // const newColumnState = placePiece(...newBoardState[selectedColumn],0)
-        // newBoardState[selectedColumn] = newColumnState
-        // setBoardState(newBoardState)
+        if(boardState[selectedColumn][0] !== "clear"){
+            return
+        }
+
+        const boardCopy = [...boardState]
+        let placementNotFound = true
+        let i = 0
+        while(placementNotFound){
+            if(boardCopy[selectedColumn][i + 1] !== "clear"){
+                boardCopy[selectedColumn][i] = currPlayer
+                setCurrPlayer(currPlayer === "red" ? "yellow" : "red")
+                placementNotFound = false
+            }
+            i++
+        }
+        setBoardState(boardCopy)
     }
 
   return (
