@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import BoardColumn from './BoardColumn'
+import checkForWin from '../connectFourWinLogic'
 
 export default function Board() {
 
@@ -17,7 +18,8 @@ export default function Board() {
     )
 
     const selectColumn = (e) => {
-        const selectedColumn = e.currentTarget.id
+        const selectedColumn = parseInt(e.currentTarget.id)
+        let selectedSlot = 0
 
         if(boardState[selectedColumn][0] !== "clear"){
             return
@@ -30,11 +32,13 @@ export default function Board() {
             if(boardCopy[selectedColumn][i + 1] !== "clear"){
                 boardCopy[selectedColumn][i] = currPlayer
                 setCurrPlayer(currPlayer === "red" ? "yellow" : "red")
+                selectedSlot = i
                 placementNotFound = false
             }
             i++
         }
         setBoardState(boardCopy)
+        checkForWin(selectedColumn,selectedSlot,boardState,currPlayer)
     }
 
   return (
