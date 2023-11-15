@@ -43,8 +43,9 @@ const checkForWin = (x,y,boardState,color) => {
         negativeXY >= 3 ||
         positiveXY >= 3 ||
         vertical >= 3){
-            console.log(`${color} player wins!`)
+            return `${color} player wins!`
         }
+    return 
 }
 
 export default checkForWin
