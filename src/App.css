@@ -14,10 +14,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .winText {
-  margin-top: 10vh;
   font-size: 2rem;
   font-family: 'Times New Roman', Times, serif;
 }
