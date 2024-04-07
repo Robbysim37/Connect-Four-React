@@ -30,7 +30,8 @@ export default function Board(props) {
     const [turn,setTurn] = useState(0)
     const [currPlayer,setCurrPlayer] = useState("red")
     const [boardState,setBoardState] = useState([...clearBoard])
-    const [isWinner,setIsWinner] = useState(false)
+    const {isWinner,setIsWinner} = props
+    
 
     const selectColumn = (e) => {
         const selectedColumn = parseInt(e.currentTarget.id)
@@ -50,6 +51,7 @@ export default function Board(props) {
                 setCurrPlayer(currPlayer === "red" ? "yellow" : "red")
                 selectedSlot = i
                 placementNotFound = false
+                props.setCurrTurn(currPlayer === "red" ? "Yellow" : "Red")
             }
             i++
         }
@@ -70,7 +72,7 @@ export default function Board(props) {
     <div className='board'>
         {
             boardState.map((currColumn,i) => {
-                return <BoardColumn column={currColumn} id={i}
+                return <BoardColumn setCurrTurn={props.setCurrTurn} column={currColumn} id={i}
                 selectColumn={selectColumn}key={Math.random()}/>
             })
         }
